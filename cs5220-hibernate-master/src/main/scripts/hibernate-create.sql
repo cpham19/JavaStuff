@@ -51,6 +51,7 @@ insert into customer_phones (customer_id, phone, phone_order) values (3, '(543) 
 insert into accounts (id, balance, created_on, owner_id) values (1, 2.54, '2014-02-15', 1);
 insert into accounts (id, balance, created_on, owner_id) values (2, 122.54, '2013-01-17', 2);
 insert into accounts (id, balance, created_on, owner_id) values (3, 2225.54, '2012-05-20', 3);
+insert into accounts (id, balance, created_on, owner_id) values (4, 14442.54, '2014-02-17', 1);
 
 --insert into account_owners (account_id, owner_id) values (1, 1);
 --insert into account_owners (account_id, owner_id) values (2, 2);

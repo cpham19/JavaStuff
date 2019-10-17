@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="logTest" class="cs520.spring.aop.LogTest">
+        <property name="task" ref="loggedTask1" />
+        <property name="task2" ref="loggedTask2" />
+    </bean>
+
+    <bean id="loggedTask1" class="cs520.spring.aop.LoggedTask1" />
+
+    <bean id="loggedTask2" class="cs520.spring.aop.LoggedTask2" />
+
+    <!--===========================================-->
+    <!-- loggedTask2 Using Before and After Advice -->
+    <!--===========================================-->
+
+    <bean id="loggedTask2WithAdvice"
+        class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <list>
+                <value>cs520.spring.aop.LoggedTask</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>loggingAdvice</value>
+            </list>
+        </property>
+        <property name="target" ref="loggedTask2" />
+    </bean>
+
+    <bean id="loggingAdvice" class="cs520.spring.aop.LoggingAdvice" />
+
+    <!--===========================================-->
+    <!-- loggedTask2 Using Interceptor and Advisor -->
+    <!--===========================================-->
+
+    <bean id="loggedTask2WithAdvisor"
+        class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <list>
+                <value>cs520.spring.aop.LoggedTask</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>loggingAdvisor</value>
+            </list>
+        </property>
+        <property name="target" ref="loggedTask2" />
+    </bean>
+
+    <bean id="loggingInterceptor" class="cs520.spring.aop.LoggingInterceptor" />
+
+    <bean id="loggingAdvisor"
+        class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="mappedName" value="doSomething*" />
+        <property name="advice" ref="loggingInterceptor" />
+    </bean>
+
+</beans>

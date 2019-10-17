@@ -32,6 +32,8 @@ public class Account implements Serializable {
     @Column(name = "created_on")
     private Date createdOn;
 
+    
+    // This joins tables accounts and customers using owner_id (of Account) and id of (Customer) and get the Customer entity
     @ManyToOne
     @JoinColumn(name="owner_id")
     private Customer owner;

@@ -40,6 +40,7 @@ public class Customer implements Serializable {
     @OrderColumn(name = "phone_order")
     private List<String> phones;
     
+    // Get a set of Accounts for each Customer object
     @OneToMany(mappedBy="owner")
     private Set<Account> accounts;
 
