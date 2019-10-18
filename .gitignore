@@ -7,3 +7,5 @@
 /.classpath
 /.settings/
 /.metadata
+/Servers
+application.properties
