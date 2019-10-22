@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Documents</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 50%;
+			}
+			
+			td, th {
+			  border: 1px solid black;
+			  text-align: left;
+			  padding: 8px;
+			}
+			
+			tr:nth-child(even) {
+			  background-color: #dddddd;
+			}
+		</style>
+	</head>
+	<body>
+	 	<p><a th:href="@{/documents/add}" class="btn btn-info">Add</a></p>
+		<table>
+			<tbody>
+				<tr>
+					<th>Document Name</th>
+					<th>Last Updated</th>
+				</tr>
+				<tr th:each="document: ${documents}">
+				  <td>
+				  	<a th:href="@{'/documents/' + ${document.id}}" th:text="${document.name}"></a> <a th:href="@{'/documents/delete/' + ${document.id}}" class="btn btn-danger">Delete</a>
+				  </td>
+				  <td th:text="${document.latestRevisionTimestamp}" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
