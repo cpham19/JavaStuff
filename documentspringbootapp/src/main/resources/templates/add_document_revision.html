@@ -1,15 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Add document</title>
+		<title>Add document revision</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<style>
 
 		</style>
 	</head>
 	<body>
-		<h1>Add Document</h1>
-		<form action="#" th:action="@{/documents/post}" th:object="${form}" method="post" enctype="multipart/form-data">
-	        <p>Name of document: <input type="text" th:field="*{nameOfDocument}" /></p>
+		<h1 th:text="'Adding Revision to Document #' + ${document.id}"></h1>
+		<form action="#" th:action="@{'/documents/' + ${document.id} + '/post'}" th:object="${form}" method="post" enctype="multipart/form-data">
 	        <p>Notes: <textarea th:field="*{note}" ></textarea></p>
 	        <p>
 		    	Choose file to upload: <input type="file" name="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">

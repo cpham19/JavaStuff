@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title th:text="${document.name}"></title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,19 +21,28 @@
 		</style>
 	</head>
 	<body>
+		<h1 th:text="'Document Name: ' +${document.name}"></h1>
+		<p th:text="'Number of Revisions: ' + ${document.numberOfRevisions}"></p>
+		<p th:text="'Latest Timestamp: ' + ${document.latestRevisionTimestamp}"></p>
+	
+		<a th:href="@{'/documents/' + ${document.id} + '/add'}">Add Document Revision</a>
 		<table>
 			<tbody>
 				<tr>
-					<th>Document Name</th>
-					<th>Latest Revision</th>
-					<th>Latest Timestamp</th>
+					<th>File</th>
+					<th>Note</th>
+					<th>Revision</th>
+					<th>Timestamp</th>
 				</tr>
-				<tr>
-					<td th:text="${document.name}"></td>
-					<td th:text="${document.numberOfRevisions}"></td>
-					<td th:text="${document.latestRevisionTimestamp}"></td>
+				<tr th:each="revision: ${document.docRevisions}">
+					<td><a th:href="@{'/documents/' + ${document.id} + '/download-revision/' + ${revision.id}} + '/' + ${revision.filename}" th:text="${revision.filename}"></a></td>
+					<td th:text="${revision.note}"></td>
+					<td th:text="${revision.revisionNum}"></td>
+					<td th:text="${revision.dateTimestamp}"></td>
 				</tr>
 			</tbody>
 		</table>
+		
+		
 	</body>
 </html>

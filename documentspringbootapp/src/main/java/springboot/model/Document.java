@@ -1,10 +1,13 @@
 package springboot.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +25,10 @@ public class Document implements Serializable {
     private int numberOfRevisions;
 
     private String latestRevisionTimestamp;
+    
+    // Get a set of Accounts for each Customer object
+    @OneToMany(mappedBy="document")
+    private List<DocumentRevision> docRevisions;
     
     public int getNumberOfRevisions() {
 		return numberOfRevisions;
@@ -54,4 +61,13 @@ public class Document implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+	public List<DocumentRevision> getDocRevisions() {
+		return docRevisions;
+	}
+
+	public void setDocRevisions(List<DocumentRevision> docRevisions) {
+		this.docRevisions = docRevisions;
+	}
 }
+

@@ -26,12 +26,14 @@
 			<tbody>
 				<tr>
 					<th>Document Name</th>
+					<th>Revisions</th>
 					<th>Last Updated</th>
 				</tr>
 				<tr th:each="document: ${documents}">
 				  <td>
 				  	<a th:href="@{'/documents/' + ${document.id}}" th:text="${document.name}"></a> <a th:href="@{'/documents/delete/' + ${document.id}}" class="btn btn-danger">Delete</a>
 				  </td>
+				  <td th:text="${document.docRevisions.size()}"></td>
 				  <td th:text="${document.latestRevisionTimestamp}" /></td>
 				</tr>
 			</tbody>
