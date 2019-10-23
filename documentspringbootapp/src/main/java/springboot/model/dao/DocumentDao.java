@@ -18,4 +18,6 @@ public interface DocumentDao {
 	Document addDocument(Document document);
 
 	void addDocumentRevision(DocumentRevision revision);
+	
+	void editDocumentRevision(DocumentRevision revision, int revisionid);
 }

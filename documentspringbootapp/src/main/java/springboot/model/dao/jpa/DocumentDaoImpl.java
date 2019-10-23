@@ -64,4 +64,11 @@ public class DocumentDaoImpl implements DocumentDao {
 		return entityManager.find(DocumentRevision.class, id);
 	}
 	
+	@Override
+	@Transactional
+	public void editDocumentRevision(DocumentRevision rev, int revisionid) {
+		DocumentRevision revision = this.getDocumentRevision(revisionid);
+		revision.setNote(rev.getNote());
+	}
+	
 }

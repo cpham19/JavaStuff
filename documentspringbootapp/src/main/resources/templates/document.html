@@ -35,7 +35,10 @@
 					<th>Timestamp</th>
 				</tr>
 				<tr th:each="revision: ${document.docRevisions}">
-					<td><a th:href="@{'/documents/' + ${document.id} + '/download-revision/' + ${revision.id}} + '/' + ${revision.filename}" th:text="${revision.filename}"></a></td>
+					<td>
+						<a th:href="@{'/documents/' + ${document.id} + '/download-revision/' + ${revision.id}} + '/' + ${revision.filename}" th:text="${revision.filename}"></a>
+						<a th:href="@{'/documents/' + ${document.id} + '/edit-revision/' + ${revision.id}}" class="btn btn-success">Edit</a>
+					</td>
 					<td th:text="${revision.note}"></td>
 					<td th:text="${revision.revisionNum}"></td>
 					<td th:text="${revision.dateTimestamp}"></td>

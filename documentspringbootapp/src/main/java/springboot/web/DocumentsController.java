@@ -126,4 +126,19 @@ public class DocumentsController {
     			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + revision.getFilename() + "\"")
     			.body(revision.getData());
     }
+    
+    // Go to Edit document revision screen
+    @GetMapping("/{documentid}/edit-revision/{revisionid}")
+    public String edit(@PathVariable int documentid, @PathVariable int revisionid, Model model) {
+    	model.addAttribute("revision", documentDao.getDocumentRevision(revisionid));
+    	return "edit_document_revision";
+    }
+    
+    
+    // Submit Editted Document Revision (with Uploaded File)
+    @PostMapping("/{documentid}/post-edit-revision/{revisionid}")
+    public String submitEdit(@ModelAttribute DocumentRevision revision, @PathVariable int documentid, @PathVariable int revisionid) {
+    	documentDao.editDocumentRevision(revision, revisionid);
+    	return "redirect:/documents/" + documentid;
+    }
 }
