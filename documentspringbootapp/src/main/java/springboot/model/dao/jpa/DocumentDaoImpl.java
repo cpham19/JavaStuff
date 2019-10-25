@@ -1,5 +1,7 @@
 package springboot.model.dao.jpa;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -50,13 +52,26 @@ public class DocumentDaoImpl implements DocumentDao {
 
 	@Override
 	@Transactional
-	public void addDocumentRevision(DocumentRevision revision) {
+	public DocumentRevision addDocumentRevision(DocumentRevision revision) {
 		Document document = revision.getDocument();
 		int revisionNum = revision.getDocument().getNumberOfRevisions() + 1;
 		revision.setRevisionNum(revisionNum);
 		document.setNumberOfRevisions(revisionNum);
 		document.setLatestRevisionTimestamp(revision.getDateTimestamp());
 		entityManager.persist(revision);
+		
+		String newName = String.join("_", revision.getFilename().split(" "));
+		URL url = null;
+		try {
+			url = new URL("http://localhost:8080/documents/24/download/" + revision.getId() + "/" + newName);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		revision.setDownloadLink(url);
+		
+		return revision;
 	}
 
 	@Override
@@ -66,9 +81,10 @@ public class DocumentDaoImpl implements DocumentDao {
 	
 	@Override
 	@Transactional
-	public void editDocumentRevision(DocumentRevision rev, int revisionid) {
-		DocumentRevision revision = this.getDocumentRevision(revisionid);
-		revision.setNote(rev.getNote());
+	public DocumentRevision editDocumentRevision(DocumentRevision revision, String note) {
+		DocumentRevision newRevision = this.getDocumentRevision(revision.getId());
+		newRevision.setNote(note);
+		return newRevision;
 	}
 	
 }

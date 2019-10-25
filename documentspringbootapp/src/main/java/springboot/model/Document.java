@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "documents")
 public class Document implements Serializable {
@@ -27,6 +29,7 @@ public class Document implements Serializable {
     private String latestRevisionTimestamp;
     
     // Get a set of Accounts for each Customer object
+    @JsonIgnore
     @OneToMany(mappedBy="document")
     private List<DocumentRevision> docRevisions;
     

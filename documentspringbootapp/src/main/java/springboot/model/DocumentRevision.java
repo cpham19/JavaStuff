@@ -1,6 +1,8 @@
 package springboot.model;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "document_revisions")
@@ -31,13 +36,17 @@ public class DocumentRevision implements Serializable {
     
     private String filetype;
     
+    @JsonIgnore
     @Lob
     @Column(length=100000)
     private byte[] data;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="document_id")
     private Document document;
+    
+    private URL downloadLink;
 
 	public Integer getId() {
 		return id;
@@ -102,6 +111,15 @@ public class DocumentRevision implements Serializable {
 
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+
+	public URL getDownloadLink() throws MalformedURLException {
+		String newName = String.join("_", filename.split(" "));
+		return downloadLink;
+	}
+
+	public void setDownloadLink(URL downloadLink) {
+		this.downloadLink = downloadLink;
 	}
 }
 

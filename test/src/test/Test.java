@@ -11,6 +11,11 @@ public class Test {
 		human.talk();
 		human.walk();
 		human.solveProblem();
+		
+		String s = "HELLO    THERE";
+		if (s.contains(" ")) {
+			System.out.print("YES");
+		}
 	}
 
 }
